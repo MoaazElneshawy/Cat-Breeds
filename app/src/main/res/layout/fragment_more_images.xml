@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <import type="android.view.View" />
+
+        <import type="com.moaazelneshawy.catbreed.view.listeners.OnBackClicked" />
+
+        <variable
+            name="onBackClicked"
+            type="OnBackClicked" />
+
+        <variable
+            name="images"
+            type="List&lt;String>" />
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <import type="com.moaazelneshawy.catbreed.network.models.Breed"/>
+        <variable
+            name="breed"
+            type="Breed" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground2">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="5dp"
+            android:onClick="@{() -> onBackClicked.onBack()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:fontFamily="monospace"
+            android:text="@{breed.name}"
+            android:textColor="@android:color/white"
+            android:textColorHighlight="@color/colorAccent"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@id/moreImagesFragmentSlider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.daimajia.slider.library.SliderLayout
+            android:id="@+id/moreImagesFragmentSlider"
+            imgs="@{images}"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ProgressBar
+            android:id="@+id/moreImagesFragmentPB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

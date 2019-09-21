@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.moaazelneshawy.catbreed.network.models.Breed" />
+
+        <import type="com.moaazelneshawy.catbreed.view.listeners.OnWikiUrlClickListener" />
+
+        <import type="com.moaazelneshawy.catbreed.view.listeners.OnLoadMoreImages" />
+
+
+        <import type="com.moaazelneshawy.catbreed.view.listeners.OnBackClicked" />
+
+        <variable
+            name="onBackClicked"
+            type="OnBackClicked" />
+
+
+        <variable
+            name="onWikiClick"
+            type="OnWikiUrlClickListener" />
+
+        <variable
+            name="url"
+            type="String" />
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <variable
+            name="breed"
+            type="Breed" />
+
+        <variable
+            name="loadMoreImages"
+            type="OnLoadMoreImages" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground2"
+        tools:context=".view.fragment.BreedDetailsFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/detailsFragmentImage"
+            image_src="@{url}"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:scaleType="fitXY"
+            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_placeholder" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/detailsFragmentCloseIV"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="5dp"
+            android:onClick="@{() -> onBackClicked.onBack()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back" />
+
+        <ProgressBar
+            android:id="@+id/detailsFragmentLoadingPB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsFragmentNameTV"
+            style="@style/OverlayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="monospace"
+            android:text="@{breed.name}"
+            android:textColor="@android:color/white"
+            android:textColorHighlight="@color/colorAccent"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/detailsFragmentDetailsContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/app_name" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/detailsFragmentDetailsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailsFragmentImage"
+            tools:alpha="1">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:id="@+id/detailsFragmentTable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/life_span"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentLifeSpanTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{breed.life_span}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/temperament"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentTempTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{breed.temperament}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size"
+                            tools:text="@string/app_name" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/wikipedia_url"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentWikiTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:onClick="@{ () -> onWikiClick.onWikiClick(breed.wikipedia_url)}"
+                            android:text="@{breed.wikipedia_url}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/origin"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentOrigin"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{breed.origin}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/experimental"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentExperimentalTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{String.valueOf(breed.experimental)}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/adaptability"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentAdaptabilityTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{String.valueOf(breed.adaptability)}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/hairless"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentHairlessTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{String.valueOf(breed.hairless)}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/hypoallergenic"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentHypoallergenicTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{String.valueOf(breed.hypoallergenic)}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/natural"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentNaturalTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{String.valueOf(breed.natural)}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/rare"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentRareTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{String.valueOf(breed.rare)}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/rex"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentRexTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{String.valueOf(breed.rex)}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/short_legs"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentShortLegsTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{String.valueOf(breed.short_legs)}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/border"
+                        android:padding="10dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_weight="1"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/suppressed_tail"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/details_size" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/detailsFragmentTailTV"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="2"
+                            android:width="0dp"
+                            android:gravity="start|center_vertical"
+                            android:text="@{String.valueOf(breed.suppressed_tail)}"
+                            android:textColor="@color/colorGolden"
+                            android:textSize="@dimen/details_size" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/detailsFragmentSeeMoreTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:onClick="@{ () -> loadMoreImages.loadMoreImages(breed)}"
+                    android:text="@string/see_more_images"
+                    android:textColor="@color/colorGolden"
+                    android:textSize="@dimen/title_size" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

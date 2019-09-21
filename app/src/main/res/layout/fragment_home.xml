@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.moaazelneshawy.catbreed.network.models.Breed" />
+
+        <import type="java.util.List" />
+
+        <import type="android.view.View" />
+
+        <import type="com.moaazelneshawy.catbreed.view.listeners.OnBreedsItemClickListener" />
+
+        <variable
+            name="onBreedClick"
+            type="OnBreedsItemClickListener" />
+
+        <variable
+            name="breeds"
+            type="List&lt;Breed>" />
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground2">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/homeTitleTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="#FFF"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeBreedsRV"
+            breeds_list="@{breeds}"
+            on_bread_click="@{onBreedClick}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/homeTitleTV" />
+        <!--        android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"-->
+
+        <ProgressBar
+            android:id="@+id/homeLoadingPB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--        android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.moaazelneshawy.catbreed.view.fragment.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_breedDetailsFragment"
+            app:destination="@id/breedDetailsFragment">
+<!--            <argument-->
+<!--                android:name="@string/breed"-->
+<!--                android:defaultValue="no"-->
+<!--                app:argType="string" />-->
+        </action>
+
+    </fragment>
+    <fragment
+        android:id="@+id/moreImagesFragment"
+        android:name="com.moaazelneshawy.catbreed.view.fragment.MoreImagesFragment"
+        android:label="fragment_more_images"
+        tools:layout="@layout/fragment_more_images" />
+    <fragment
+        android:id="@+id/breedDetailsFragment"
+        android:name="com.moaazelneshawy.catbreed.view.fragment.BreedDetailsFragment"
+        android:label="BreedDetailsFragment">
+        <action
+            android:id="@+id/action_breedDetailsFragment_to_moreImagesFragment"
+            app:destination="@id/moreImagesFragment" />
+    </fragment>
+</navigation>

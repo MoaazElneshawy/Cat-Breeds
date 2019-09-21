@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Cat Breed</string>
+    <string name="loading_breeds_fail">Fail to load breeds !</string>
+    <string name="loading_details">Fail to load details !</string>
+    <string name="close">Close</string>
+    <string name="retry">Retry</string>
+    <string name="loading_breeds">Loading breeds ...</string>
+    <string name="select_breeds">Select breeds from the list</string>
+
+    <string name="name">Name</string>
+    <string name="life_span">Life Span</string>
+    <string name="weight_imperial">Weight Imperial</string>
+    <string name="temperament">Temperament</string>
+    <string name="country_code">Country</string>
+
+    <string name="wikipedia_url">Wikipedia Url</string>
+    <string name="origin">Origin</string>
+    <string name="experimental">Experimental</string>
+    <string name="adaptability">Adaptability</string>
+    <string name="hairless">Hairless</string>
+    <string name="hypoallergenic">Hypoallergenic</string>
+    <string name="natural">Natural</string>
+    <string name="rare">Rare</string>
+    <string name="rex">Rex</string>
+    <string name="short_legs">Short Legs</string>
+    <string name="suppressed_tail">Suppressed Tail</string>
+
+    <string name="breed">breed</string>
+    <string name="breed_obj">breed_obj</string>
+
+    <string name="see_more_images">see more images</string>
+
+</resources>
+
